@@ -12,7 +12,7 @@ Please contact your [local distributor](https://www.dino-lite.com/contact01.php)
 
 ---
 
-## Setup Python venv
+## Setup Python Env
 
 ```sh
 python3 -m venv .venv
@@ -52,9 +52,9 @@ if micro_scope.Init():
 
 ---
 
-## Appendix
+## Appendix: Parameter Table
 
-Here are some charts that explains further details of corresponding methods.
+Below parameter tables explain further details of corresponding methods.
 
 ### GetConfig():
 

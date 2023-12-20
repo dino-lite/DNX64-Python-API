@@ -5,7 +5,7 @@ Python class: `DNX64` contains methods corresponding to functions in the DLL, of
 
 ## Prerequisites
 
-When using DNX64 for python, `DNX64.dll` is needed.
+When using DNX64 SDK for python, `DNX64.dll` is needed.
 Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to get `DNX64.dll`.
 
 ---
@@ -59,7 +59,7 @@ Here are some charts that explains further details of corresponding methods.
 | [7]   | EDOF | Read | 1 = Supported, 0 = Not supported |
 | [6]   | AMR  | Read | 1 = Supported, 0 = Not supported |
 | [5]   | eFLC | Read | 1 = Supported, 0 = Not supported |
-| [4]   | -    | -    | Reserved                         |
+| [4]   | APL  | Read | 1 = Supported, 0 = Not supported |
 | [3:2] | LED  | Read | 00 = Not switchable              |
 |       |      |      | 01 = 2 Modes (on & off)          |
 |       |      |      | 10 = 3 Modes (LED 1, LED2, off)  |

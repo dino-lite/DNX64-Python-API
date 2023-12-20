@@ -111,7 +111,7 @@ def start_camera(microscope):
 def run_wifi():
     """Run the camera and set the MicroTouch event callback."""
     try:
-        DNX64 = importlib.import_module("DNX64.DNX64")
+        DNX64 = getattr(importlib.import_module("DNX64"), "DNX64")
     except ImportError as err:
         print("Error: ", err)
 

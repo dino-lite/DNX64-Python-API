@@ -108,10 +108,10 @@ def start_camera(microscope):
     cv2.destroyAllWindows()
 
 
-if __name__ == "__main__":
+def run_wifi():
     """Run the camera and set the MicroTouch event callback."""
     try:
-        DNX64 = importlib.import_module("DNX64-Python-Demo.DNX64")
+        DNX64 = importlib.import_module("DNX64.DNX64")
     except ImportError as err:
         print("Error: ", err)
 
@@ -123,3 +123,6 @@ if __name__ == "__main__":
     # Required before using other methods, otherwise return values will fail or be incorrect.
     micro_scope.Init()
     start_camera(micro_scope)
+
+
+# if __name__ == "__main__":

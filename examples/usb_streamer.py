@@ -162,10 +162,10 @@ def start_camera(microscope):
     cv2.destroyAllWindows()
 
 
-if __name__ == "__main__":
+def run_usb():
     """Run the camera and set the MicroTouch event callback."""
     try:
-        DNX64 = importlib.import_module("DNX64-Python-Demo.DNX64")
+        DNX64 = importlib.import_module("DNX64.DNX64")
     except ImportError as err:
         print("Error: ", err)
 
@@ -181,3 +181,6 @@ if __name__ == "__main__":
     # Function to execute when MicroTouch event detected
     micro_scope.SetEventCallback(custom_microtouch_function)
     start_camera(micro_scope)
+
+
+# if __name__ == "__main__":

@@ -1,11 +1,13 @@
 # DNX64-Python-Demo
 
-`dnx64.py` provides a Python wrapper for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
+`DNX64/__init__.py` provides a Python wrapper for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
+
 Python class: `DNX64` contains methods corresponding to functions in the DLL, offering functionalities such as setting camera properties, getting device information, and controlling camera lens.
 
 ## Prerequisites
 
 When using DNX64 SDK for python, `DNX64.dll` is needed.
+
 Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to get `DNX64.dll`.
 
 ---
@@ -20,8 +22,9 @@ pip3 install -r requirements.txt
 ## Usage
 
 To utilize `DNX64`, assign the path to `DNX64.dll` and initialize it. Call the corresponding class methods to interact with Dino-Lite or Dino-Eye device.
-Read `dnx64.py` to get the full list of provided class methods.
-Users can check more advanced examples in `examples` directory.
+
+- Read `DNX64/__init__.py` to get the full list of provided class methods.
+- Users can check more advanced examples in `examples` directory.
 
 ```py
 from dnx64 import DNX64

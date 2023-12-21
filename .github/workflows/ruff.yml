@@ -7,7 +7,7 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9, 3.10, 3.11, 3.12]
     steps:
-      - use: advanced-security/python-lint-code-scanning-action@v1
+      - uses: advanced-security/python-lint-code-scanning-action@v1
         with:
           linter: ruff
           python-version: ${{ matrix.python-version }}

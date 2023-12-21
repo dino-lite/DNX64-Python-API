@@ -1,4 +1,4 @@
-# DNX64-Python-SDK
+# DNX64-Python-API
 
 `DNX64/__init__.py` provides a Python API for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
 

@@ -10,6 +10,8 @@ When using DNX64 API for python, `DNX64.dll` SDK is needed.
 
 Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to get `DNX64.dll`.
 
+The latest version of `DNX64.dll` is v1.0.8. If you are not using the latest one, contact your local distributor to get the latest release.
+
 ---
 
 ## Setup Python Env

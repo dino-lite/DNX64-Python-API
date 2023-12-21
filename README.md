@@ -17,7 +17,6 @@ Please contact your [local distributor](https://www.dino-lite.com/contact01.php)
 ```sh
 python3 -m venv .venv
 pip3 install -r requirements.txt
-python3 ./main.py
 ```
 
 ## Usage

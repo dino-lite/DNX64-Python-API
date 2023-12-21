@@ -1,8 +1,8 @@
-# DNX64-Python-Demo
+# DNX64-Python-SDK
 
-`DNX64/__init__.py` provides a Python wrapper for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
+`DNX64/__init__.py` provides a Python API for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
 
-Python class: `DNX64` contains methods corresponding to functions in the DLL, offering functionalities such as setting camera properties, getting device information, and controlling camera lens.
+Python class: `DNX64` contains class methods corresponding to functions in the DLL, offering functionalities such as setting camera properties, getting device information, and controlling camera lens.
 
 ## Prerequisites
 
@@ -27,10 +27,13 @@ To utilize `DNX64`, assign the path to `DNX64.dll` and initialize it. Call the c
 - Users can check more advanced examples in `examples` directory.
 
 ```py
-from dnx64 import DNX64
+try:
+    DNX64 = getattr(importlib.import_module("DNX64"), "DNX64")
+except ImportError as err:
+    print("Error: ", err)
 
 # Initialize the DNX64 class
-dll_path = "path_to_DNX64.dll"
+dll_path = "/path/to/DNX64.dll"
 micro_scope = DNX64(dll_path)
 
 # Set Device Index first
@@ -38,7 +41,7 @@ micro_scope.SetVideoDeviceIndex(0)
 
 # Initialize the control object
 if micro_scope.Init():
-    # Get the number of video devices
+    # Get total number of video devices being detected
     device_count = micro_scope.GetVideoDeviceCount()
     print(f"Number of video devices: {device_count}")
 
@@ -53,7 +56,7 @@ if micro_scope.Init():
 
 ## Appendix: Parameter Table
 
-Below parameter tables explain further details of corresponding methods.
+Below parameter tables explain further details of corresponding `DNX64` API.
 
 ### GetConfig():
 
@@ -70,36 +73,51 @@ Below parameter tables explain further details of corresponding methods.
 | [1]   | FLC  | Read | 1 = Supported, 0 = Not supported |
 | [0]   | AXI  | Read | 1 = Supported, 0 = Not supported |
 
-### Value Index for Get/Set VideoAmpProc functions
+### Video Index of [Get/Set]VideoProcAmp()
 
-| Value | Parameter  | Value | Parameter             |
-| ----- | ---------- | ----- | --------------------- |
-| 0     | Brightness | 5     | Gamma                 |
-| 1     | Contrast   | 6     | ColorEnable           |
-| 2     | Hue        | 7     | WhiteBalance          |
-| 3     | Saturation | 8     | BacklightCompensation |
-| 4     | Sharpness  | 9     | Gain                  |
+| Value | Parameter             |
+| ----- | --------------------- |
+| 0     | Brightness            |
+| 1     | Contrast              |
+| 2     | Hue                   |
+| 3     | Saturation            |
+| 4     | Sharpness             |
+| 5     | Gamma                 |
+| 6     | ColorEnable           |
+| 7     | WhiteBalance          |
+| 8     | BacklightCompensation |
+| 9     | Gain                  |
 
 ### SetExposure()
 
-| Series     | Exposure Range | Series       | Exposure Range |
-| ---------- | -------------- | ------------ | -------------- |
-| 3011, 3013 | 8 to 30612     | 1.3M Premier | 1 to 41771     |
-| 1.3M Edge  | 1 to 63076     | 5M Premier   | 1 to 30000     |
-| 5M Edge    | 1 to 30000     |              |                |
+| Series       | Exposure Range |
+| ------------ | -------------- |
+| 3011, 3013   | 8 to 30612     |
+| 1.3M Edge    | 1 to 63076     |
+| 5M Edge      | 1 to 30000     |
+| 1.3M Premier | 1 to 41771     |
+| 5M Premier   | 1 to 30000     |
 
 ### SetFLCSwitch()
 
-| Value | Switch-on Quadrant | Value | Switch-on Quadrant |
-| ----- | ------------------ | ----- | ------------------ |
-| 1     | 1                  | 9     | 1, 4               |
-| 2     | 2                  | 10    | 2, 4               |
-| 3     | 1, 2               | 11    | 1, 2, 4            |
-| 4     | 3                  | 12    | 3, 4               |
-| 5     | 1, 3               | 13    | 1, 3, 4            |
-| 6     | 2, 3               | 14    | 2, 3, 4            |
-| 7     | 1, 2, 3            | 15    | 1, 2, 3, 4         |
-| 8     | 4                  | 16    | All LEDs turn off  |
+| Value | Switch-on Quadrant |
+| ----- | ------------------ |
+| 1     | 1                  |
+| 2     | 2                  |
+| 3     | 1, 2               |
+| 4     | 3                  |
+| 5     | 1, 3               |
+| 6     | 2, 3               |
+| 7     | 1, 2, 3            |
+| 8     | 4                  |
+| 9     | 1, 4               |
+| 10    | 2, 4               |
+| 11    | 1, 2, 4            |
+| 12    | 3, 4               |
+| 13    | 1, 3, 4            |
+| 14    | 2, 3, 4            |
+| 15    | 1, 2, 3, 4         |
+| 16    | All LEDs turn off  |
 
 ### SetLEDState()
 

@@ -146,6 +146,7 @@ class DNX64:
     def GetConfig(self, device_index: int) -> int:
         """
         Get configuration value for specified device.
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#getconfig
 
         Parameters:
             device_index (int): Index of the device.
@@ -222,7 +223,7 @@ class DNX64:
 
     def GetVideoDeviceCount(self) -> int:
         """
-        Get total number of video devices.
+        Get total number of video devices being detected
 
         Returns:
             int: Total number of video devices.
@@ -254,6 +255,7 @@ class DNX64:
     def GetVideoProcAmp(self, prop_value_index: int) -> int:
         """
         Get the value of a video property.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#value-index-for-getset-videoampproc-functions
 
         Parameters:
             ValueIndex (int): Value index of the video property.
@@ -269,6 +271,8 @@ class DNX64:
     ) -> Tuple[int, int, int, int, int]:
         """
         Get the min, max, stepping and default values for specified video property.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#value-index-for-getset-videoampproc-functions
+
 
         Parameters:
             value_index (int): Value index.
@@ -371,6 +375,7 @@ class DNX64:
     def SetExposureValue(self, device_index: int, exposure_value: int) -> None:
         """
         Set exposure value for specified device.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#setexposure
 
         Parameters:
             device_index (int): Index of the device.
@@ -383,6 +388,7 @@ class DNX64:
         REQUIRES DEVICE WITH FLC FEATURE
 
         Set FLC switch for specified device.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#setflcswitch
 
         Parameters:
             device_index (int): Index of the device.
@@ -406,6 +412,7 @@ class DNX64:
         Not applicable to AM211, AM2011, and Dino-Eye serie.
 
         Set LED state for specified device.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#setledstate
 
         Parameters:
             device_index (int): Index of the device.
@@ -448,6 +455,8 @@ class DNX64:
     def SetVideoProcAmp(self, prop_value_index: int, value: int) -> None:
         """
         Set the value for the specified video property.
+        See full parameter table at: https://github.com/dino-lite/DNX64-Python-Demo/tree/main?tab=readme-ov-file#value-index-for-getset-videoampproc-functions
+
 
         Parameters:
             prop_value_index (int): Index of video property.

@@ -1,12 +1,12 @@
 # DNX64-Python-API
 
-`DNX64/__init__.py` provides a Python API for `DNX64.dll` library, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
+`DNX64/__init__.py` provides a Python API for `DNX64.dll` SDK, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
 
-Python class: `DNX64` contains class methods corresponding to functions in the DLL, offering functionalities such as setting camera properties, getting device information, and controlling camera lens.
+Python class: `DNX64` contains class methods corresponding to functions in the SDK, offering functionalities such as setting camera properties, getting device information, and controlling camera lens.
 
 ## Prerequisites
 
-When using DNX64 SDK for python, `DNX64.dll` is needed.
+When using DNX64 API for python, `DNX64.dll` SDK is needed.
 
 Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to get `DNX64.dll`.
 
@@ -21,9 +21,9 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-To utilize `DNX64`, assign the path to `DNX64.dll` and initialize it. Call the corresponding class methods to interact with Dino-Lite or Dino-Eye device.
+To utilize `DNX64` API, assign the path to `DNX64.dll` SDK and initialize it. Call the corresponding class methods to interact with Dino-Lite or Dino-Eye device.
 
-- Read `DNX64/__init__.py` to get the full list of provided class methods.
+- Read `DNX64/__init__.py` to get the full list of provided APIs.
 - Users can check more advanced examples in `examples` directory.
 
 ```py
@@ -121,10 +121,10 @@ Below parameter tables explain further details of corresponding `DNX64` API.
 
 ### SetLEDState()
 
+- LED2 only exists on models with 2 switchable LEDs.
+
 | Values | Description |
 | ------ | ----------- |
 | 0      | LED off     |
 | 1      | LED1 on     |
 | 2      | LED2 on.    |
-
-> \*LED2 only exists on models with 2 switchable LEDs.

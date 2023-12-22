@@ -56,6 +56,7 @@ if micro_scope.Init():
 
 ---
 
-## Appendix
+## Project Wiki
 
-Check the documentation at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md
+- [Appendix: Parameter Table](https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table).
+- [Appendix: Compare to Cpp API](https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Compare-to-Cpp--API)

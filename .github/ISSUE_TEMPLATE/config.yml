@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/dino-lite/DNX64-Python-API/discussions
+    about: Any issue that does not fall into the above categories shall go here
+  - name: README
+    url: https://github.com/dino-lite/DNX64-Python-API/blob/main/README.md
+    about: Make sure you have checked our documentation first. To be explicit, the "Issues" section

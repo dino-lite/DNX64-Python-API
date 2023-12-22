@@ -5,12 +5,12 @@ boby:
   - type: markdown
     attributes:
       value: |
-        _Before reporting:_ Search [existing issues](https://github.com/dino-lite/DNX64-Python-API/issues?q=is:issue+is:open+sort:updated-desc) or [discussions](https://github.com/dino-lite/DNX64-Python-API/discussions). Thanks for helping us improve!
+        _Before reporting:_ Search [existing issues](https://github.com/dino-lite/DNX64-Python-API/issues) or [discussions](https://github.com/dino-lite/DNX64-Python-API/discussions). Thanks for helping us improve!
   - type: checkboxes
     id: is-latest-SDK
     attributes:
       label: "Version confirmation"
-      description: "Your SDK is up-to-date with the version of or [website](https://www.dino-lite.com/download06.php)"
+      description: "Your SDK is v1.0.8"
       options:
         - label: "Confirm"
           required: true

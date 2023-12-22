@@ -1,7 +1,7 @@
 name: Bug report
 description: Report bugs when using python api with `DNX64.dll` SDK
 labels: [bug]
-boby:
+body:
   - type: markdown
     attributes:
       value: |

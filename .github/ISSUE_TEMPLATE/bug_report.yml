@@ -10,7 +10,7 @@ body:
     id: is-latest-SDK
     attributes:
       label: "Version confirmation"
-      description: "Your SDK is v1.0.8"
+      description: 'Run "python3 ./version.py" and copy the result.'
       options:
         - label: "Confirm"
           required: true
@@ -66,6 +66,7 @@ body:
         idna==3.6
         numpy==1.26.2
         opencv-python==4.8.0.76
+        pywin32==306
         requests==2.31.0
         urllib3==2.1.0
         yarg==0.1.9

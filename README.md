@@ -57,3 +57,5 @@ if micro_scope.Init():
 ---
 
 ## Appendix
+
+Check the documentation at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md

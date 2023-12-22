@@ -1,0 +1,100 @@
+name: Bug report
+description: Report bugs when using python api with `DNX64.dll` SDK
+labels: [bug]
+boby:
+  - type: markdown
+    attributes:
+      value: |
+        _Before reporting:_ Search [existing issues](https://github.com/dino-lite/DNX64-Python-API/issues?q=is:issue+is:open+sort:updated-desc) or [discussions](https://github.com/dino-lite/DNX64-Python-API/discussions). Thanks for helping us improve!
+  - type: checkboxes
+    id: is-latest-SDK
+    attributes:
+      label: "Version confirmation"
+      description: "Your SDK is up-to-date with the version of or [website](https://www.dino-lite.com/download06.php)"
+      options:
+        - label: "Confirm"
+          required: true
+  - type: checkboxes
+    id: prerequisites-done
+    attributes:
+      label: "Following prerequisites"
+      description: "I've checked everythin mentioned in [README: Prerequisites](https://github.com/dino-lite/DNX64-Python-API#prerequisites)"
+      options:
+        - label: "Confirm"
+          required: true
+  - type: checkboxes
+    id: correct-initialization
+    attributes:
+      label: "Following correct initialization steps"
+      description: "I've make I am following correct initialization steps."
+      options:
+        - label: "Confirm"
+          required: true
+
+  - type: input
+    id: system-version
+    attributes:
+      label: "Windows version"
+      placeholder: "Windows 11 22H2"
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: "Python version"
+      description: "Paste the output of `python3 --version` here"
+      placeholder: "Python 3.11.4"
+    validations:
+      required: true
+  - type: input
+    id: country-codes
+    attributes:
+      label: "Nominatim/Country Codes"
+      description: "Paste your [Nominatim/Country Codes](https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes) in order to let us contact your local distributor if necessary."
+      placeholder: "US"
+    validations:
+      required: true
+  - type: textarea
+    id: python-libs
+    attributes:
+      label: "Paste your `requirements.txt`, via `pip3 freeze > requirements.txt`"
+      placeholder: |
+        certifi==2023.11.17
+        charset-normalizer==3.3.2
+        docopt==0.6.2
+        idna==3.6
+        numpy==1.26.2
+        opencv-python==4.8.0.76
+        requests==2.31.0
+        urllib3==2.1.0
+        yarg==0.1.9
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: "How to reproduce the issue?"
+      placeholder: |
+        Steps to reproduce the behavior:
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "Expected behavior"
+      description: "Describe the behavior you expect"
+    validations:
+      required: true
+  - type: textarea
+    id: extras
+    attributes:
+      label: Additional information
+      description: If applicable, you may include logs, images, or videos to help explain your problem
+    validations:
+      required: false

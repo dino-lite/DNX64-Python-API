@@ -173,7 +173,7 @@ class DNX64:
         Returns:
             str: Device ID.
         """
-        return self.dnx64.GetDeviceID(device_index)
+        return self.dnx64.GetDeviceId(device_index)
 
     def GetDeviceIDA(self, device_index: int) -> str:
         """

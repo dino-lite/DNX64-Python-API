@@ -163,7 +163,7 @@ class DNX64:
 
         return self.dnx64.GetConfig(device_index)
 
-    def GetDeviceID(self, device_index: int) -> str:
+    def GetDeviceId(self, device_index: int) -> str:
         """
         Get unique device ID for specified device.
 

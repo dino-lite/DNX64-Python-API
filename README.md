@@ -60,3 +60,7 @@ micro_scope.SetExposureValue(0, 1000)
 ## Project Wiki
 
 - [Appendix: Parameter Table](https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table).
+
+## Issues
+
+If you encounter problems with current APIs, feel free to file an [issue](https://github.com/dino-lite/DNX64-Python-API/issues)!

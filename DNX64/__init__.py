@@ -15,6 +15,10 @@ METHOD_SIGNATURES: dict = {
     "GetDeviceId": ([ctypes.c_int], ctypes.c_wchar_p),
     "GetDeviceIDA": ([ctypes.c_int], ctypes.c_char_p),
     "GetExposureValue": ([ctypes.c_int], ctypes.c_long),
+    "GetLensFinePosLimits": (
+        [ctypes.c_long, ctypes.POINTER(ctypes.c_long), ctypes.POINTER(ctypes.c_long)],
+        ctypes.c_long,
+    ),
     "GetLensPosLimits": (
         [ctypes.c_long, ctypes.POINTER(ctypes.c_long), ctypes.POINTER(ctypes.c_long)],
         ctypes.c_long,
@@ -37,6 +41,7 @@ METHOD_SIGNATURES: dict = {
     ),
     "SetAETarget": ([ctypes.c_int, ctypes.c_long], None),
     "SetAutoExposure": ([ctypes.c_int, ctypes.c_long], None),
+    "SetAimpointLevel": ([ctypes.c_int, ctypes.c_long], None),
     "SetAXILevel": ([ctypes.c_int, ctypes.c_long], None),
     "SetExposureValue": ([ctypes.c_int, ctypes.c_long], None),
     "SetEFLC": ([ctypes.c_int, ctypes.c_long, ctypes.c_long], None),
@@ -44,6 +49,7 @@ METHOD_SIGNATURES: dict = {
     "SetFLCLevel": ([ctypes.c_int, ctypes.c_long], None),
     "SetLEDState": ([ctypes.c_int, ctypes.c_long], None),
     "SetLensInitPos": ([ctypes.c_int], None),
+    "SetLensFinePos": ([ctypes.c_int, ctypes.c_long], None),
     "SetLensPos": ([ctypes.c_int, ctypes.c_long], None),
     "SetVideoDeviceIndex": ([ctypes.c_int], None),
     "SetVideoProcAmp": ([ctypes.c_long], None),
@@ -205,6 +211,22 @@ class DNX64:
         """
         return self.dnx64.GetExposureValue(device_index)
 
+    def GetLensFinePosLimits(self, device_index: int) -> Tuple[int, int]:
+        """
+        REQUIRES DINO-LITE WITH EDOF FEATURE
+
+        Get lens fine position limits for specified device.
+
+        Parameters:
+            device_index (int): Index of the device.
+
+        Returns:
+            Tuple[int, int]: Upper and lower lens fine position limits.
+        """
+        upper_limit, lower_limit = ctypes.c_long(), ctypes.c_long()
+        self.dnx64.GetLensFinePosLimits(device_index, upper_limit, lower_limit)
+        return upper_limit.value, lower_limit.value
+
     def GetLensPosLimits(self, device_index: int) -> Tuple[int, int]:
         """
         REQUIRES DINO-LITE WITH EDOF FEATURE
@@ -348,6 +370,18 @@ class DNX64:
         """
         self.dnx64.SetAutoExposure(device_index, ae_state)
 
+    def SetAimpointLevel(self, device_index: int, apl_level: int) -> None:
+        """
+        REQUIRES DINO-LITE WITH APL FEATURE
+
+        Set Aim point laser level for specified device.
+
+        Parameters:
+            device_index (int): Index of the device.
+            apl_level (int): Aim point laser level. Accepts 0 to 6.
+        """
+        self.dnx64.SetAimpointLevel(device_index, apl_level)
+
     def SetAXILevel(self, device_index: int, axi_level: int) -> None:
         """
         REQUIRES DINO-LITE WITH AXI FEATURE
@@ -429,6 +463,18 @@ class DNX64:
             device_index (int): Index of the device.
         """
         self.dnx64.SetLensInitPos(device_index)
+
+    def SetLensFinePos(self, device_index: int, lens_fine_position: int) -> None:
+        """
+        REQUIRES DEVICE WITH EDOF FEATURE
+
+        Set lens fine position for specified device.
+
+        Parameters:
+            device_index (int): Index of the device.
+            lens_fine_position (int): Lens fine position.
+        """
+        self.dnx64.SetLensFinePos(device_index, lens_fine_position)
 
     def SetLensPos(self, device_index: int, lens_position: int) -> None:
         """

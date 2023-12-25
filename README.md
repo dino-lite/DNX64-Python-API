@@ -10,7 +10,9 @@ When using DNX64 API for python, `DNX64.dll` SDK is needed.
 
 Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access to `DNX64.dll`.
 
-The latest version of `DNX64.dll` is v1.0.8. If you are not using the latest one, contact your local distributor to get the latest release.
+The latest version of `DNX64.dll` is v1.0.10. Run `python3 ./version.py` to check your DLL's version.
+
+If you are not using the latest one, contact your local distributor to get the latest release.
 
 ---
 
@@ -41,17 +43,15 @@ micro_scope = DNX64(dll_path)
 # Set Device Index first
 micro_scope.SetVideoDeviceIndex(0)
 
-# Initialize the control object
-if micro_scope.Init():
-    # Get total number of video devices being detected
-    device_count = micro_scope.GetVideoDeviceCount()
-    print(f"Number of video devices: {device_count}")
+# Get total number of video devices being detected
+device_count = micro_scope.GetVideoDeviceCount()
+print(f"Number of video devices: {device_count}")
 
-    # Set the auto-exposure target value for device 0
-    micro_scope.SetAETarget(0, 100)
+# Set the auto-exposure target value for device 0
+micro_scope.SetAETarget(0, 100)
 
-    # Set the exposure value for device 0
-    micro_scope.SetExposureValue(0, 1000)
+# Set the exposure value for device 0
+micro_scope.SetExposureValue(0, 1000)
 ```
 
 ---
@@ -59,4 +59,3 @@ if micro_scope.Init():
 ## Project Wiki
 
 - [Appendix: Parameter Table](https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table).
-- [Appendix: Compare to Cpp API](https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Compare-to-Cpp--API)

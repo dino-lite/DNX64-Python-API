@@ -1,4 +1,5 @@
 import importlib
+import math
 import threading
 import time
 
@@ -13,6 +14,12 @@ QUERY_TIME = 0.05  # Buffer time for Dino-Lite to return value
 COMMAND_TIME = 0.25  # Buffer time to allow Dino-Lite to process command
 
 
+def clear_line(n=1):
+    LINE_CLEAR = "\x1b[2K"
+    for i in range(n):
+        print("", end=LINE_CLEAR)
+
+
 def threaded(func):
     """Wrapper to run a function in a separate thread with @threaded decorator"""
 
@@ -25,13 +32,47 @@ def threaded(func):
 
 def custom_microtouch_function():
     """Executes when MicroTouch press event got detected"""
-    print("MicroTouch press detected!")
+
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    clear_line(1)
+    print(f"{timestamp} MicroTouch press detected!", end="\r")
 
 
 def print_amr(microscope):
-    amr = microscope.GetAMR(DEVICE_INDEX)
-    amr = round(amr, 1)
-    print(f"{amr}x")
+    config = microscope.GetConfig(DEVICE_INDEX)
+    if (config & 0x40) == 0x40:
+        amr = microscope.GetAMR(DEVICE_INDEX)
+        amr = round(amr, 1)
+        clear_line(1)
+        print(f"{amr}x", end="\r")
+        time.sleep(QUERY_TIME)
+    else:
+        clear_line(1)
+        print("It does not belong to the AMR serie.", end="\r")
+
+
+def print_config(microscope):
+    config = microscope.GetConfig(DEVICE_INDEX)
+    clear_line(1)
+    print("Config value =", end="")
+    print("0x{:X}".format(config), end="")
+    if (config & 0x80) == 0x80:
+        print(", EDOF", end="")
+    if (config & 0x40) == 0x40:
+        print(", AMR", end="")
+    if (config & 0x20) == 0x20:
+        print(", eFLC", end="")
+    if (config & 0x10) == 0x10:
+        print(", Aim Point Laser", end="")
+    if (config & 0xC) == 0x4:
+        print(", 2 segments LED", end="")
+    if (config & 0xC) == 0x8:
+        print(", 3 segments LED", end="")
+    if (config & 0x2) == 0x2:
+        print(", FLC", end="")
+    if (config & 0x1) == 0x1:
+        print(", AXI")
+    print("", end="\r")
     time.sleep(QUERY_TIME)
 
 
@@ -41,14 +82,23 @@ def set_index(microscope):
 
 
 def print_fov_mm(microscope):
-    fov = microscope.FOVx(DEVICE_INDEX, microscope.GetAMR(DEVICE_INDEX))
+    amr = microscope.GetAMR(DEVICE_INDEX)
+    fov = microscope.FOVx(DEVICE_INDEX, amr)
+    amr = round(amr, 1)
     fov = round(fov / 1000, 2)
-    print(fov, "mm")
+    if fov == math.inf:
+        fov = round(microscope.FOVx(DEVICE_INDEX, 50.0) / 1000.0, 2)
+        clear_line(1)
+        print("50x fov: ", fov, "mm", end="\r")
+    else:
+        clear_line(1)
+        print(f"{amr}x fov: ", fov, "mm", end="\r")
     time.sleep(QUERY_TIME)
 
 
 def print_deviceid(microscope):
-    print(microscope.GetDeviceId(0))
+    clear_line(1)
+    print(microscope.GetDeviceId(0), end="\r")
     time.sleep(QUERY_TIME)
 
 
@@ -58,34 +108,50 @@ def flash_leds(microscope):
     time.sleep(COMMAND_TIME)
     microscope.SetLEDState(0, 1)
     time.sleep(COMMAND_TIME)
+    clear_line(1)
+    print("flash_leds", end="\r")
+
+
+def led_off(microscope):
+    microscope.SetLEDState(0, 0)
+    time.sleep(COMMAND_TIME)
+    clear_line(1)
+    print("led off", end="\r")
 
 
 def capture_image(frame):
     """Capture an image and save it in the current working directory."""
+
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     filename = f"image_{timestamp}.png"
     cv2.imwrite(filename, frame)
-    print(f"Saved image to {filename}")
+    clear_line(1)
+    print(f"Saved image to {filename}", end="\r")
 
 
 def start_recording(frame_width, frame_height, fps):
     """Start recording video and return the video writer object."""
+
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     filename = f"video_{timestamp}.avi"
     fourcc = cv2.VideoWriter.fourcc(*"XVID")
     video_writer = cv2.VideoWriter(filename, fourcc, fps, (frame_width, frame_height))
-    print(f"Video recording started: {filename}\nPress SPACE to stop.")
+    clear_line(1)
+    print(f"Video recording started: {filename}. Press r to stop.", end="\r")
     return video_writer
 
 
 def stop_recording(video_writer):
     """Stop recording video and release the video writer object."""
+
     video_writer.release()
-    print("Video recording stopped")
+    clear_line(1)
+    print("Video recording stopped", end="\r")
 
 
 def initialize_camera():
     """Setup OpenCV camera parameters and return the camera object."""
+
     camera = cv2.VideoCapture(DEVICE_INDEX, cv2.CAP_DSHOW)
     camera.set(cv2.CAP_PROP_FPS, CAMERA_FPS)
     camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc("m", "j", "p", "g"))
@@ -97,11 +163,13 @@ def initialize_camera():
 
 def process_frame(frame):
     """Resize frame to fit window."""
+
     return cv2.resize(frame, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
 
 def start_camera(microscope):
     """Starts camera, initializes variables for video preview, and listens for shortcut keys."""
+
     camera = initialize_camera()
 
     if not camera.isOpened():
@@ -110,6 +178,25 @@ def start_camera(microscope):
 
     recording = False
     video_writer = None
+    inits = True
+
+    print(
+        "Press the key below prompts to continue \n \
+        0:Led off \n \
+        1:AMR \n \
+        2:Flash_leds and On \n \
+        c:List config \n \
+        d:Show devicd id \n \
+        f:Show fov \n \
+        r:Record video or Stop Record video \n \
+        s:Capture image \n \
+        6:Set EFLC Quddrant 1 to flash \n \
+        7:Set EFLC Quddrant 2 to flash \n \
+        8:Set EFLC Quddrant 3 to flash \n \
+        9:Set EFLC Quddrant 4 to flash \n \
+        Esc:Quit \
+        "
+    )
 
     while True:
         ret, frame = camera.read()
@@ -119,10 +206,25 @@ def start_camera(microscope):
 
             if recording:
                 video_writer.write(frame)
+            # Only initialize once in this while loop
+            if inits:
+                # Set index of video device. Call before Init().
+                microscope.SetVideoDeviceIndex(DEVICE_INDEX)
+                time.sleep(0.1)
+                # Enabled MicroTouch Event
+                microscope.EnableMicroTouch(True)
+                time.sleep(0.1)
+                # Function to execute when MicroTouch event detected
+                microscope.SetEventCallback(custom_microtouch_function)
+                time.sleep(0.1)
+                inits = False
+        key = cv2.waitKey(1) & 0xFF
 
-        key = cv2.waitKey(25) & 0xFF
+        # Press '0' to set_index()
+        if key == ord("0"):
+            led_off(microscope)
 
-        # Press '1' to print AMR value
+        # Press '1' to print AMR
         if key == ord("1"):
             print_amr(microscope)
 
@@ -130,30 +232,59 @@ def start_camera(microscope):
         if key == ord("2"):
             flash_leds(microscope)
 
-        # Press 'f' to show fov
-        if key == ord("f"):
-            print_fov_mm(microscope)
+        # Press 'c' to save a snapshot
+        if key == ord("c"):
+            print_config(microscope)
 
         # Press 'd' to show device id
         if key == ord("d"):
             print_deviceid(microscope)
 
+        # Press 'f' to show fov
+        if key == ord("f"):
+            print_fov_mm(microscope)
+
         # Press 's' to save a snapshot
         if key == ord("s"):
             capture_image(frame)
+
+        # Press '6' to let EFCL Quadrant 1 to flash
+        if key == ord("6"):
+            microscope.SetEFLC(DEVICE_INDEX, 1, 32)
+            time.sleep(0.1)
+            microscope.SetEFLC(DEVICE_INDEX, 1, 31)
+
+        # Press '7' to let EFCL Quadrant 2 to flash
+        if key == ord("7"):
+            microscope.SetEFLC(DEVICE_INDEX, 2, 32)
+            time.sleep(0.1)
+            microscope.SetEFLC(DEVICE_INDEX, 2, 15)
+
+        # Press '8' to let EFCL Quadrant 3 to flash
+        if key == ord("8"):
+            microscope.SetEFLC(DEVICE_INDEX, 3, 32)
+            time.sleep(0.1)
+            microscope.SetEFLC(DEVICE_INDEX, 3, 15)
+
+        # Press '9' to let EFCL Quadrant 4 to flash
+        if key == ord("9"):
+            microscope.SetEFLC(DEVICE_INDEX, 4, 32)
+            time.sleep(0.1)
+            microscope.SetEFLC(DEVICE_INDEX, 4, 31)
 
         # Press 'r' to start recording
         if key == ord("r") and not recording:
             recording = True
             video_writer = start_recording(CAMERA_WIDTH, CAMERA_HEIGHT, CAMERA_FPS)
 
-        # Press 'SPACE' to stop recording
-        if key == 32 and recording:
+        # Press 'r' again to stop recording
+        elif key == ord("r") and recording:
             recording = False
             stop_recording(video_writer)
 
         # Press ESC to close
         if key == 27:
+            clear_line(1)
             break
 
     if video_writer is not None:
@@ -163,7 +294,6 @@ def start_camera(microscope):
 
 
 def run_usb():
-    """Run the camera and set the MicroTouch event callback."""
     try:
         DNX64 = getattr(importlib.import_module("DNX64"), "DNX64")
     except ImportError as err:
@@ -171,15 +301,6 @@ def run_usb():
 
     # Initialize microscope
     micro_scope = DNX64(DNX64_PATH)
-    # Set index of video device. Call before Init().
-    micro_scope.SetVideoDeviceIndex(DEVICE_INDEX)
-    # Initialize the control object.
-    # Required before using other methods, otherwise return values will fail or be incorrect.
-    micro_scope.Init()
-    # Enabled MicroTouch Event
-    micro_scope.EnableMicroTouch(True)
-    # Function to execute when MicroTouch event detected
-    micro_scope.SetEventCallback(custom_microtouch_function)
     start_camera(micro_scope)
 
 

@@ -152,7 +152,7 @@ class DNX64:
     def GetConfig(self, device_index: int) -> int:
         """
         Get configuration value for specified device.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#getconfig
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#getconfig
 
         Parameters:
             device_index (int): Index of the device.
@@ -277,7 +277,7 @@ class DNX64:
     def GetVideoProcAmp(self, prop_value_index: int) -> int:
         """
         Get the value of a video property.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#video-index-of-getsetvideoprocamp
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#video-index-of-getsetvideoprocamp
 
         Parameters:
             ValueIndex (int): Value index of the video property.
@@ -408,7 +408,7 @@ class DNX64:
     def SetExposureValue(self, device_index: int, exposure_value: int) -> None:
         """
         Set exposure value for specified device.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#setexposure
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#setexposure
 
         Parameters:
             device_index (int): Index of the device.
@@ -421,7 +421,7 @@ class DNX64:
         REQUIRES DEVICE WITH FLC FEATURE
 
         Set FLC switch for specified device.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#setflcswitch
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#setflcswitch
 
         Parameters:
             device_index (int): Index of the device.
@@ -445,7 +445,7 @@ class DNX64:
         Not applicable to AM211, AM2011, and Dino-Eye serie.
 
         Set LED state for specified device.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#setledstate
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#setledstate
 
         Parameters:
             device_index (int): Index of the device.
@@ -500,7 +500,7 @@ class DNX64:
     def SetVideoProcAmp(self, prop_value_index: int, value: int) -> None:
         """
         Set the value for the specified video property.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/blob/main/Appendix.md#video-index-of-getsetvideoprocamp
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#video-index-of-getsetvideoprocamp
 
 
         Parameters:
@@ -529,6 +529,6 @@ class DNX64:
         Parameters:
             DeviceIndex (int): Index of the device.
             Quadrant (int): Quadrant number (1-4).
-            Value (int): EFLC value.
+            Value (int): EFLC value. (1-31 is the quadrant's brightness level, and 32 is to turn the quadrant off).
         """
         self.dnx64.SetEFLC(DeviceIndex, Quadrant, Value)

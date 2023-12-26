@@ -6,13 +6,12 @@ Python class: `DNX64` contains class methods corresponding to functions in the S
 
 ## Prerequisites
 
-When using DNX64 API for python, `DNX64.dll` SDK is needed.
+- To utilize DNX64 APIs for Python, ensure that the `DNX64.dll` SDK is been placed.
+  Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access to the `DNX64.dll` file.
 
-Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access to `DNX64.dll`.
-
-The latest version of `DNX64.dll` is v1.0.10. Run `python3 ./version.py` to check the DLL's version.
-
-If you are not using the up-to-date DLL, contact your local distributor to get the latest release.
+- Verify that you have the latest version of `DNX64.dll`, which is currently `v1.0.10`.
+  You may check the DLL's version by running `python3 ./version.py`.
+  If you are not using the most recent version of the DLL, kindly contact your [local distributor](https://www.dino-lite.com/contact01.php) to acquire the latest release.
 
 ---
 
@@ -25,11 +24,11 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-It is required to set the device index before any operations! Otherwise, the value of device **will be incorrect**.
-Find and use the corresponding class methods for interacting with Dino-Lite or Dino-Eye devices.
+Ensure that the device index is set prior to performing any operations, as an incorrect device value may result otherwise.
+Utilize the corresponding class methods for interaction with Dino-Lite or Dino-Eye devices.
 
-- Read `DNX64/__init__.py` to get the full list of provided APIs.
-- Users can check more advanced examples in `examples` directory.
+- Refer to the `DNX64/__init__.py` file for a comprehensive list of available APIs.
+- More advanced examples can be found in `examples` directory.
 
 ```py
 try:

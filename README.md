@@ -46,9 +46,13 @@ micro_scope.SetVideoDeviceIndex(0)
 # Get total number of video devices being detected
 device_count = micro_scope.GetVideoDeviceCount()
 print(f"Number of video devices: {device_count}")
+# NOTE: Buffer time for devices to set up properly
+time.sleep(0.1)
 
 # Set the auto-exposure target value for device 0
 micro_scope.SetAETarget(0, 100)
+# NOTE: Buffer time for devices to set up properly
+time.sleep(0.1)
 
 # Set the exposure value for device 0
 micro_scope.SetExposureValue(0, 1000)

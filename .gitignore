@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .DS_Store
-.rtx.toml
+.mise.toml
 
 # C extensions
 *.so

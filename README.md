@@ -67,3 +67,7 @@ micro_scope.SetExposureValue(0, 1000)
 ## Issues
 
 If you encounter problems with current APIs, feel free to file an [issue](https://github.com/dino-lite/DNX64-Python-API/issues)!
+
+## Acknowledgments
+
+We gratefully acknowledge **Dunwell Tech** for providing the foundational code that contributed to the development of the `DNX64 Python API`.

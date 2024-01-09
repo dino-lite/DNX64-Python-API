@@ -70,4 +70,4 @@ If you encounter problems with current APIs, feel free to file an [issue](https:
 
 ## Acknowledgments
 
-We gratefully acknowledge **Dunwell Tech** for providing the foundational code that contributed to the development of the `DNX64 Python API`.
+We gratefully acknowledge **Dunwell Tech** for providing the foundational code that contributed to the development of the `DNX64 Python API`!

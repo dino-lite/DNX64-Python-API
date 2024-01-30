@@ -10,8 +10,13 @@ WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 960
 CAMERA_WIDTH, CAMERA_HEIGHT, CAMERA_FPS = 1280, 960, 30
 DNX64_PATH = "C:\\Program Files\\DNX64\\DNX64.dll"
 DEVICE_INDEX = 0
-QUERY_TIME = 0.05  # Buffer time for Dino-Lite to return value
-COMMAND_TIME = 0.25  # Buffer time to allow Dino-Lite to process command
+# Camera index, please change it if you have more than one camera,
+# i.e. webcam, connected to your PC until CAM_INDEX is been set to first Dino-Lite product.
+CAM_INDEX = 0
+# Buffer time for Dino-Lite to return value
+QUERY_TIME = 0.05
+# Buffer time to allow Dino-Lite to process command
+COMMAND_TIME = 0.25
 
 
 def clear_line(n=1):
@@ -150,9 +155,12 @@ def stop_recording(video_writer):
 
 
 def initialize_camera():
-    """Setup OpenCV camera parameters and return the camera object."""
+    """
+    Setup OpenCV camera parameters and return the camera object.
+    Change CAM_INDEX to Dino-Lite camera index, which is based on the order of the camera connected to your PC.
+    """
 
-    camera = cv2.VideoCapture(DEVICE_INDEX, cv2.CAP_DSHOW)
+    camera = cv2.VideoCapture(CAM_INDEX, cv2.CAP_DSHOW)
     camera.set(cv2.CAP_PROP_FPS, CAMERA_FPS)
     camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc("m", "j", "p", "g"))
     camera.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc("M", "J", "P", "G"))

@@ -1,13 +1,13 @@
 # DNX64-Python-API
 
-`DNX64/__init__.py` provides a Python API for `DNX64.dll` SDK, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
+`DNX64/__init__.py` provides a Python API for `DNX64` SDK, which allows users to interact with a Dino-Lite or Dino-Eye device using Python.
 
 Python class: `DNX64` contains class methods corresponding to functions in the SDK, offering functionalities such as setting camera properties, retrieving device information, and controlling cameras.
 
 ## Prerequisites
 
-- To utilize DNX64 APIs for Python, ensure that the `DNX64.dll` SDK is been placed.
-  Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access to the `DNX64.dll` file.
+- To utilize DNX64 APIs for Python, ensure that the `DNX64.dll`, `etLib2_x64.dll` and `libusbK.dll` are been placed in the same directory after installing `DNX64`.
+  Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access `DNX64`.
 
 - Verify that you have the latest version of `DNX64.dll`, which is currently `v1.0.10`.
   You may check the DLL's version by running `python3 ./version.py`.
@@ -29,6 +29,11 @@ Utilize the corresponding class methods for interaction with Dino-Lite or Dino-E
 
 - Refer to the `DNX64/__init__.py` file for a comprehensive list of available APIs.
 - More advanced examples can be found in `examples` directory.
+- Make sure you set global variable: `CAM_INDEX` to your first, if there is more than one,
+  Dino-Lite product when connected via USB,
+  since `OpenCV` will recognize all USB devices with camera, i.e. webcam, etc.
+  Read the full doc of `cv2.VideoCapture()` at [ref1](https://docs.opencv.org/4.5.2/d8/dfe/classcv_1_1VideoCapture.html#aabce0d83aa0da9af802455e8cf5fd181)
+  & [ref2](https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html)
 
 ```py
 try:

@@ -158,6 +158,9 @@ def initialize_camera():
     """
     Setup OpenCV camera parameters and return the camera object.
     Change CAM_INDEX to Dino-Lite camera index, which is based on the order of the camera connected to your PC.
+    Read the full doc of `cv2.VideoCapture()` at
+    https://docs.opencv.org/4.5.2/d8/dfe/classcv_1_1VideoCapture.html#aabce0d83aa0da9af802455e8cf5fd181 &
+    https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html
     """
 
     camera = cv2.VideoCapture(CAM_INDEX, cv2.CAP_DSHOW)

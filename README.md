@@ -63,6 +63,14 @@ time.sleep(0.1)
 micro_scope.SetExposureValue(0, 1000)
 ```
 
+- Run below command to start a simple preview window when connected via USB.
+
+`python3 ./examples/simple_usb_preview_window.py`
+
+- Open below html file in browser to start a simple preview webpage when connected via internet.
+
+`./examples/simple_wifi_preview_window.html`
+
 ---
 
 ## Project Wiki

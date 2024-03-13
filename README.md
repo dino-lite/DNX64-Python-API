@@ -6,7 +6,7 @@ Python class: `DNX64` contains class methods corresponding to functions in the S
 
 ## Prerequisites
 
-- To utilize DNX64 APIs for Python, ensure that the `DNX64.dll`, `etLib2_x64.dll` and `libusbK.dll` are been placed in the same directory after installing `DNX64`.
+- To utilize DNX64 APIs for Python, ensure that the `DNX64.dll`, `DNX32.dll` and `libusbK.dll` are been placed in the same directory after installing `DNX64`.
   Please contact your [local distributor](https://www.dino-lite.com/contact01.php) to obtain access `DNX64`.
 
 - Verify that you have the latest version of `DNX64.dll`, which is currently `v1.0.10`.

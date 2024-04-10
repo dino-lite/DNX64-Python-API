@@ -41,7 +41,8 @@ def change_resolution(microscope):
 
 
 @threaded
-def capture_image_wifi(microscope, counter=[0]):
+def capture_image_wifi(microscope):
+    counter = [0]
     counter[0] += 1
     filename = f"streamer_image_{counter[0]}.jpg"
     microscope.GetWiFiImage(filename)

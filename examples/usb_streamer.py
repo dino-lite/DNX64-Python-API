@@ -178,19 +178,21 @@ def process_frame(frame):
     return cv2.resize(frame, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
 
-def start_camera(microscope):
-    """Starts camera, initializes variables for video preview, and listens for shortcut keys."""
+def init_microscope(microscope):
+    # Set index of video device. Call before Init().
+    microscope.SetVideoDeviceIndex(DEVICE_INDEX)
+    time.sleep(0.1)
+    # Enabled MicroTouch Event
+    microscope.EnableMicroTouch(True)
+    time.sleep(0.1)
+    # Function to execute when MicroTouch event detected
+    microscope.SetEventCallback(custom_microtouch_function)
+    time.sleep(0.1)
 
-    camera = initialize_camera()
+    return microscope
 
-    if not camera.isOpened():
-        print("Error opening the camera device.")
-        return
 
-    recording = False
-    video_writer = None
-    inits = True
-
+def print_keymaps():
     print(
         "Press the key below prompts to continue \n \
         0:Led off \n \
@@ -209,6 +211,80 @@ def start_camera(microscope):
         "
     )
 
+
+def config_keymaps(microscope, frame):
+    key = cv2.waitKey(1) & 0xFF
+
+    # Press '0' to set_index()
+    if key == ord("0"):
+        led_off(microscope)
+
+    # Press '1' to print AMR
+    if key == ord("1"):
+        print_amr(microscope)
+
+    # Press '2' to flash LEDs
+    if key == ord("2"):
+        flash_leds(microscope)
+
+    # Press 'c' to save a snapshot
+    if key == ord("c"):
+        print_config(microscope)
+
+    # Press 'd' to show device id
+    if key == ord("d"):
+        print_deviceid(microscope)
+
+    # Press 'f' to show fov
+    if key == ord("f"):
+        print_fov_mm(microscope)
+
+    # Press 's' to save a snapshot
+    if key == ord("s"):
+        capture_image(frame)
+
+    # Press '6' to let EFCL Quadrant 1 to flash
+    if key == ord("6"):
+        microscope.SetEFLC(DEVICE_INDEX, 1, 32)
+        time.sleep(0.1)
+        microscope.SetEFLC(DEVICE_INDEX, 1, 31)
+
+    # Press '7' to let EFCL Quadrant 2 to flash
+    if key == ord("7"):
+        microscope.SetEFLC(DEVICE_INDEX, 2, 32)
+        time.sleep(0.1)
+        microscope.SetEFLC(DEVICE_INDEX, 2, 15)
+
+    # Press '8' to let EFCL Quadrant 3 to flash
+    if key == ord("8"):
+        microscope.SetEFLC(DEVICE_INDEX, 3, 32)
+        time.sleep(0.1)
+        microscope.SetEFLC(DEVICE_INDEX, 3, 15)
+
+    # Press '9' to let EFCL Quadrant 4 to flash
+    if key == ord("9"):
+        microscope.SetEFLC(DEVICE_INDEX, 4, 32)
+        time.sleep(0.1)
+        microscope.SetEFLC(DEVICE_INDEX, 4, 31)
+
+    return key
+
+
+def start_camera(microscope):
+    """Starts camera, initializes variables for video preview, and listens for shortcut keys."""
+
+    camera = initialize_camera()
+
+    if not camera.isOpened():
+        print("Error opening the camera device.")
+        return
+
+    recording = False
+    video_writer = None
+    inits = True
+
+    print_keymaps()
+
     while True:
         ret, frame = camera.read()
         if ret:
@@ -219,69 +295,10 @@ def start_camera(microscope):
                 video_writer.write(frame)
             # Only initialize once in this while loop
             if inits:
-                # Set index of video device. Call before Init().
-                microscope.SetVideoDeviceIndex(DEVICE_INDEX)
-                time.sleep(0.1)
-                # Enabled MicroTouch Event
-                microscope.EnableMicroTouch(True)
-                time.sleep(0.1)
-                # Function to execute when MicroTouch event detected
-                microscope.SetEventCallback(custom_microtouch_function)
-                time.sleep(0.1)
+                microscope = init_microscope(microscope)
                 inits = False
-        key = cv2.waitKey(1) & 0xFF
 
-        # Press '0' to set_index()
-        if key == ord("0"):
-            led_off(microscope)
-
-        # Press '1' to print AMR
-        if key == ord("1"):
-            print_amr(microscope)
-
-        # Press '2' to flash LEDs
-        if key == ord("2"):
-            flash_leds(microscope)
-
-        # Press 'c' to save a snapshot
-        if key == ord("c"):
-            print_config(microscope)
-
-        # Press 'd' to show device id
-        if key == ord("d"):
-            print_deviceid(microscope)
-
-        # Press 'f' to show fov
-        if key == ord("f"):
-            print_fov_mm(microscope)
-
-        # Press 's' to save a snapshot
-        if key == ord("s"):
-            capture_image(frame)
-
-        # Press '6' to let EFCL Quadrant 1 to flash
-        if key == ord("6"):
-            microscope.SetEFLC(DEVICE_INDEX, 1, 32)
-            time.sleep(0.1)
-            microscope.SetEFLC(DEVICE_INDEX, 1, 31)
-
-        # Press '7' to let EFCL Quadrant 2 to flash
-        if key == ord("7"):
-            microscope.SetEFLC(DEVICE_INDEX, 2, 32)
-            time.sleep(0.1)
-            microscope.SetEFLC(DEVICE_INDEX, 2, 15)
-
-        # Press '8' to let EFCL Quadrant 3 to flash
-        if key == ord("8"):
-            microscope.SetEFLC(DEVICE_INDEX, 3, 32)
-            time.sleep(0.1)
-            microscope.SetEFLC(DEVICE_INDEX, 3, 15)
-
-        # Press '9' to let EFCL Quadrant 4 to flash
-        if key == ord("9"):
-            microscope.SetEFLC(DEVICE_INDEX, 4, 32)
-            time.sleep(0.1)
-            microscope.SetEFLC(DEVICE_INDEX, 4, 31)
+        key = config_keymaps(microscope, frame)
 
         # Press 'r' to start recording
         if key == ord("r") and not recording:

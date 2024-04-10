@@ -79,8 +79,6 @@ def start_camera(microscope):
         print("Error opening the camera device.")
         return
 
-    video_writer = None
-
     while True:
         ret, frame = camera.read()
         if ret:
@@ -109,8 +107,6 @@ def start_camera(microscope):
         if key == 27:
             break
 
-    if video_writer is not None:
-        video_writer.release()
     camera.release()
     cv2.destroyAllWindows()
 

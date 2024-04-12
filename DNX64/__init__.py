@@ -500,7 +500,7 @@ class DNX64:
     def SetVideoProcAmp(self, prop_value_index: int, value: int) -> None:
         """
         Set the value for the specified video property.
-        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#video-index-of-getsetvideoprocamp
+        See full parameter table at https://github.com/dino-lite/DNX64-Python-API/wiki/Appendix:-Parameter-Table#video-property-index-of-getsetvideoprocamp
 
 
         Parameters:

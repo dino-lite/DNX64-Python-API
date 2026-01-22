@@ -5,6 +5,6 @@ idna==3.7
 numpy==1.26.2
 opencv-python==4.8.1.78
 pywin32==306
-requests==2.32.0
+requests==2.32.4
 urllib3==2.2.2
 yarg==0.1.9
